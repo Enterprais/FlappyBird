@@ -1,0 +1,4 @@
+﻿  main.cpp
+c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(183): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(194): warning C4244: 'initializing': conversion from 'sf::Int64' to 'float', possible loss of data
+sfml-graphics-d.lib(sfml-graphics-d-2.dll) : fatal error LNK1112: module machine type 'x86' conflicts with target machine type 'x64'

@@ -198,8 +198,8 @@ int main()
 		
 
 		//std::cout << deltaTime << "\n";
-		std::cout << "--------" << Tubes.size() << std::endl;
-		std::cout << "+++" << returnValue.Distance<<" "<<returnValue.Height << std::endl;
+		//std::cout << "--------" << Tubes.size() << std::endl;
+		std::cout  << returnValue.Distance<<" "<<returnValue.Height << std::endl;
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -245,7 +245,7 @@ int main()
 
 			it = Tubes.begin();
 			temp = *it;
-			if (temp->GetXCoord() < Bird.GetXCoord() && temp->Checked == false)  //подсчет очков
+			if (temp->GetXCoord()+25 < Bird.GetXCoord() && temp->Checked == false)  //подсчет очков
 			{
 				ScorePoint++;
 				PlayerScore.str("");
@@ -280,8 +280,8 @@ int main()
 			Tube *temp = *it;
 			if (temp->Checked == false)
 			{
-				returnValue.Distance = temp->GetXCoord() - Bird.GetXCoord();
-				returnValue.Height = temp->TubeDownSprite.getPosition().y;
+				returnValue.Distance = temp->GetXCoord() - Bird.GetXCoord()+25;
+				returnValue.Height = temp->TubeDownSprite.getPosition().y+45;
 				break;
 			}
 
