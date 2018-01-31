@@ -39,6 +39,12 @@ public:
 		BirdSprite.setPosition(fXCoord, fYCoord);
 	}
 
+	void SetPositionDefault()
+	{
+		fYCoord = 150;
+		fXCoord = 100;
+	}
+
 	void Move(float time)
 	{
 		fYCoord -= fVerticalSpeed * time;
@@ -191,9 +197,9 @@ int main()
 
 	while (window.isOpen())
 	{
-		window.setFramerateLimit(60);
+		//window.setFramerateLimit(60);
 		float time = clock.getElapsedTime().asMicroseconds();
-		time = time / 100000;
+		time = time / 10000; //параметр управления скоростью игры
 		deltaTime += clock.getElapsedTime().asMilliseconds();
 		clock.restart();
 
@@ -213,7 +219,7 @@ int main()
 				window.close();
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)&&playing == false) //проверка нажатия клавиши прыжка
+		if (/*sf::Keyboard::isKeyPressed(sf::Keyboard::Space)&&*/playing == false) //проверка нажатия клавиши прыжка
 		{
 			Tubes.clear();
 			playing = true;
@@ -221,6 +227,7 @@ int main()
 			ScorePoint = 0;
 			PlayerScore.str("0");
 			score.setString(PlayerScore.str());
+			Bird.SetPositionDefault();
 		}
 
 		if (playing) //проверка начала игры
