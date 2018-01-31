@@ -4,6 +4,7 @@
 #include <deque>  
 #include <iterator>  
 #include <sstream>
+#include "NNPlayer.h"
 #pragma warning(disable : 4996)
 
 
@@ -144,11 +145,11 @@ public:
 	}
 };
 
-struct ReturnValue
-{
-	float Height = 0;
-	float Distance = 0;
-};
+//struct returnvalue
+//{
+//	float height = 0;
+//	float distance = 0;
+//};
 
 int main()
 {
@@ -195,6 +196,10 @@ int main()
 		time = time / 100000;
 		deltaTime += clock.getElapsedTime().asMilliseconds();
 		clock.restart();
+
+
+		// Нейросеть
+		NNPlayer AIplayer;
 		
 
 		//std::cout << deltaTime << "\n";
@@ -222,6 +227,12 @@ int main()
 		{
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) //проверка нажатия клавиши прыжка
+			{
+				Bird.Jump();
+			}
+
+			
+			if (AIplayer.needToJump(returnValue)) // запрос у нейросети
 			{
 				Bird.Jump();
 			}
@@ -265,6 +276,9 @@ int main()
 				temp->GetUpSprite().getGlobalBounds().intersects(Bird.GetSprite().getGlobalBounds()))
 			{
 				playing = false;
+				
+				// изменение нейросети
+				AIplayer.learn();
 			}
 
 			it = Tubes.begin();										//
