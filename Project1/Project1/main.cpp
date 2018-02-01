@@ -14,7 +14,6 @@ class Bird
 	float fVerticalSpeed;
 	float fYCoord;
 	float fXCoord;
-
 	float fGravity;
 
 	sf::Image BirdImage;
@@ -29,7 +28,7 @@ public:
 	{
 
 		fVerticalSpeed = 0;
-		fGravity = 1;
+		fGravity = 6;
 		fYCoord = 150;
 		fXCoord = 100;
 
@@ -48,8 +47,9 @@ public:
 
 	void Move(float time)
 	{
-		fYCoord -= fVerticalSpeed;// * time;
-		fVerticalSpeed = fVerticalSpeed - fGravity;
+		fVerticalSpeed = fVerticalSpeed - (fGravity*time);
+		fYCoord -= fVerticalSpeed * time;
+		
 		if (fYCoord < 0)
 		{
 			fYCoord = 0;
@@ -61,7 +61,7 @@ public:
 	
 	void Jump()
 	{
-		fVerticalSpeed = 4;//20;
+		fVerticalSpeed = 25;
 		//fYCoord = 0;
 	}
 
@@ -125,7 +125,7 @@ public:
 
 	void Move(float time)
 	{
-		fXCoord = fXCoord - fSpeed*time;
+		fXCoord -= fSpeed * time;
 		TubeUpSprite.setPosition(fXCoord+25, fHeight-Delta);
 		TubeDownSprite.setPosition(fXCoord, fHeight);
 
@@ -202,7 +202,7 @@ int main()
 	{
 		window.setFramerateLimit(60);
 		float time = clock.getElapsedTime().asMicroseconds();
-		time /= 10000; //параметр управления скоростью игры
+		time /= 100000; //параметр управления скоростью игры
 		deltaTime += clock.getElapsedTime().asMilliseconds();
 		clock.restart();
 
@@ -213,7 +213,7 @@ int main()
 
 		//std::cout << deltaTime << "\n";
 		//std::cout << "--------" << Tubes.size() << std::endl;
-		std::cout  << returnValue.Distance<<" "<<returnValue.Height << std::endl;
+		std::cout  << time/*returnValue.Distance<<" "<<returnValue.Height*/ << std::endl;
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -226,7 +226,7 @@ int main()
 		{
 			Tubes.clear();
 			playing = true;
-			deltaTime = 4000;
+			deltaTime = 1000000000000;
 			ScorePoint = 0;
 			PlayerScore.str("0");
 			score.setString(PlayerScore.str());
@@ -239,18 +239,17 @@ int main()
 			
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) //проверка нажатия клавиши прыжка
 			{				
-				if (isJump) {
+				if (isJump)
+				{
 					Bird.Jump();
 				}
-				
 				isJump = false;
 			}
-			else {
+			else 
+			{
 				isJump = true;
 			}
 			
-
-
 			//
 			//if (AIplayer.needToJump(returnValue)) // запрос у нейросети
 			//{
@@ -259,7 +258,7 @@ int main()
 
 			Bird.Update(time);
 
-			if (deltaTime > 3000) //создание трубы
+			if (deltaTime >  (1/time) * 500) //создание трубы
 			{
 				Tube *tube = new Tube();
 				Tubes.push_back(tube);
