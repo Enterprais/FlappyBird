@@ -197,9 +197,9 @@ int main()
 
 	while (window.isOpen())
 	{
-		//window.setFramerateLimit(60);
+		window.setFramerateLimit(60);
 		float time = clock.getElapsedTime().asMicroseconds();
-		time = time / 10000; //параметр управления скоростью игры
+		time = time / 100000; //параметр управления скоростью игры
 		deltaTime += clock.getElapsedTime().asMilliseconds();
 		clock.restart();
 
@@ -230,18 +230,21 @@ int main()
 			Bird.SetPositionDefault();
 		}
 
+
+		int counter = 0;
 		if (playing) //проверка начала игры
 		{
-
+			AIplayer.showWeights();
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) //проверка нажатия клавиши прыжка
 			{
 				Bird.Jump();
 			}
 
-			
-			if (AIplayer.needToJump(returnValue)) // запрос у нейросети
+			counter++;
+			if (AIplayer.needToJump(returnValue) && (counter % 10) == 0) // запрос у нейросети
 			{
 				Bird.Jump();
+				counter = 0;
 			}
 
 			Bird.Update(time);

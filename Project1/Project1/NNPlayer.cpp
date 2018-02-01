@@ -1,4 +1,5 @@
 #include "NNPlayer.h"
+#include <iostream>
 
 
 
@@ -12,7 +13,7 @@ NNPlayer::NNPlayer(
 	m_alpha = alpha;
 }
 
-NNPlayer::NNPlayer() : Net({ 2, 6, 1 })
+NNPlayer::NNPlayer() : Net({ 2, 1, 1 })
 {
 	m_eta = 0.15;
 	m_alpha = 0.10;
@@ -35,5 +36,7 @@ bool NNPlayer::needToJump(ReturnValue input)
   	Net::feedForward({ input.Height, input.Distance });
 	std::vector<double> resultVals;
 	Net::getResults(resultVals);
-	return resultVals.back() > 0.5;
+	std::cout << "Result neuro val: " << resultVals[0] << std::endl;
+
+	return resultVals[0] > 0.5;
 }
