@@ -48,7 +48,7 @@ public:
 
 	void Move(float time)
 	{
-		fYCoord -= fVerticalSpeed * time;
+		fYCoord -= fVerticalSpeed;// * time;
 		fVerticalSpeed = fVerticalSpeed - fGravity;
 		if (fYCoord < 0)
 		{
@@ -61,7 +61,7 @@ public:
 	
 	void Jump()
 	{
-		fVerticalSpeed = 20;
+		fVerticalSpeed = 4;//20;
 		//fYCoord = 0;
 	}
 
@@ -195,12 +195,14 @@ int main()
 	std::deque<Tube*> ::iterator it = Tubes.begin();
 
 	ReturnValue returnValue;
+	bool isJump = true;
+
 
 	while (window.isOpen())
 	{
 		window.setFramerateLimit(60);
 		float time = clock.getElapsedTime().asMicroseconds();
-		time = time / 100000; //параметр управления скоростью игры
+		time /= 10000; //параметр управления скоростью игры
 		deltaTime += clock.getElapsedTime().asMilliseconds();
 		clock.restart();
 
@@ -230,20 +232,30 @@ int main()
 			score.setString(PlayerScore.str());
 			Bird.SetPositionDefault();
 		}
-
+		
 		if (playing) //проверка начала игры
 		{
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) //проверка нажатия клавиши прыжка
-			{
-				Bird.Jump();
-			}
-
 			
-			if (AIplayer.needToJump(returnValue)) // запрос у нейросети
-			{
-				Bird.Jump();
+			
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) //проверка нажатия клавиши прыжка
+			{				
+				if (isJump) {
+					Bird.Jump();
+				}
+				
+				isJump = false;
 			}
+			else {
+				isJump = true;
+			}
+			
+
+
+			//
+			//if (AIplayer.needToJump(returnValue)) // запрос у нейросети
+			//{
+			//	Bird.Jump();
+			//}
 
 			Bird.Update(time);
 
@@ -264,6 +276,9 @@ int main()
 
 			it = Tubes.begin();
 			temp = *it;
+			
+
+			
 			if (temp->GetXCoord()+25 < Bird.GetXCoord() && temp->Checked == false)  //подсчет очков
 			{
 				ScorePoint++;
