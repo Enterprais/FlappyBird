@@ -43,6 +43,7 @@ public:
 	{
 		fYCoord = 150;
 		fXCoord = 100;
+		fVerticalSpeed = 0;
 	}
 
 	void Move(float time)
@@ -197,9 +198,9 @@ int main()
 
 	while (window.isOpen())
 	{
-		//window.setFramerateLimit(60);
+		window.setFramerateLimit(60);
 		float time = clock.getElapsedTime().asMicroseconds();
-		time = time / 10000; //параметр управления скоростью игры
+		time = time / 100000; //параметр управления скоростью игры
 		deltaTime += clock.getElapsedTime().asMilliseconds();
 		clock.restart();
 
@@ -302,7 +303,7 @@ int main()
 			if (temp->Checked == false)
 			{
 				returnValue.Distance = temp->GetXCoord() - Bird.GetXCoord()+25;
-				returnValue.Height = temp->TubeDownSprite.getPosition().y+45;
+				returnValue.Height =480 - temp-> TubeDownSprite.getPosition().y+45;
 				break;
 			}
 

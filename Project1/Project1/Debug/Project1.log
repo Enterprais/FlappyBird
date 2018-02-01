@@ -1,4 +1,4 @@
 ﻿  main.cpp
-c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(190): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(201): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
+c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(191): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(202): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
   Project1.vcxproj -> C:\Users\Andrew\Documents\GitHub\FlappyBird\Project1\Debug\Project1.exe
