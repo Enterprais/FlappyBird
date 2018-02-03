@@ -1,7 +1,7 @@
 ﻿  main.cpp
 c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(191): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(204): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
-c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(229): warning C4305: =: усечение из "__int64" в "float"
+c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(203): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
+c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(228): warning C4305: =: усечение из "__int64" в "float"
   Создание кода...
   Пропуск... (изменения не обнаружены)
   Neuron.cpp

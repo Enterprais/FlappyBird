@@ -190,7 +190,6 @@ int main()
 	sf::Clock clock; 
 	srand(time(NULL));
 
-	Tube *temp;
 	std::deque<Tube*> Tubes;
 	std::deque<Tube*> ::iterator it = Tubes.begin();
 
@@ -213,7 +212,7 @@ int main()
 
 		//std::cout << deltaTime << "\n";
 		//std::cout << "--------" << Tubes.size() << std::endl;
-		std::cout  << time/*returnValue.Distance<<" "<<returnValue.Height*/ << std::endl;
+		std::cout  << returnValue.Distance<<" "<<returnValue.Height << std::endl;
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -258,33 +257,27 @@ int main()
 
 			Bird.Update(time);
 
+
 			if (deltaTime >  (1/time) * 500) //создание трубы
 			{
 				Tube *tube = new Tube();
 				Tubes.push_back(tube);
 				deltaTime = 0;
-
 			}
 
-			for (it = Tubes.begin(); it < Tubes.end(); it++) //обновление движения труб
+			for (it = Tubes.begin(); it < Tubes.end() && !Tubes.empty(); it++) //обновление движения труб
 			{
-				Tube *temp = *it;
-				temp->Update(time);
-
+				(*it)->Update(time);
 			}
 
-			it = Tubes.begin();
-			temp = *it;
-			
-
-			
-			if (temp->GetXCoord()+25 < Bird.GetXCoord() && temp->Checked == false)  //подсчет очков
+		
+			if ((*(it = Tubes.begin()))->GetXCoord()+25 < Bird.GetXCoord() && (*(it = Tubes.begin()))->Checked == false && !Tubes.empty())  //подсчет очков
 			{
 				ScorePoint++;
 				PlayerScore.str("");
 				PlayerScore << ScorePoint;
 				score.setString(PlayerScore.str());
-				temp->Checked = true;
+				(*it)->Checked = true;
 			}
 
 			if (Bird.GetYCoord() > 480) //проверка падения
@@ -292,10 +285,10 @@ int main()
 				playing = false;
 			}
 
-			it = Tubes.begin();
-			temp = *it;        //проверка на столкновение с трубой 
-			if (temp->GetDownSprite().getGlobalBounds().intersects(Bird.GetSprite().getGlobalBounds())|| 
-				temp->GetUpSprite().getGlobalBounds().intersects(Bird.GetSprite().getGlobalBounds()))
+
+			if ((*(it = Tubes.begin()))->GetDownSprite().getGlobalBounds().intersects(Bird.GetSprite().getGlobalBounds())||
+				(*(it = Tubes.begin()))->GetUpSprite().getGlobalBounds().intersects(Bird.GetSprite().getGlobalBounds())
+				&& !Tubes.empty())      //проверка на столкновение с трубой 
 			{
 				playing = false;
 				
@@ -303,36 +296,33 @@ int main()
 				AIplayer.learn();
 			}
 
-			it = Tubes.begin();										//
-			temp = *it;												//
-			if (temp->GetXCoord() < -25 )							//
+			
+			if ((*(it = Tubes.begin()))->GetXCoord() < -25 )							//
 			{														//  удаление труб вышедших за экран
 				Tubes.pop_front();									//
-			}														//
-		}
-
-		for (it = Tubes.begin(); it < Tubes.end(); it++) //возврат расстояния до ближайшей трубы и её высоты
-		{
-			Tube *temp = *it;
-			if (temp->Checked == false)
-			{
-				returnValue.Distance = temp->GetXCoord() - Bird.GetXCoord()+25;
-				returnValue.Height =480 - temp-> TubeDownSprite.getPosition().y+45;
-				break;
 			}
+			
+			for (it = Tubes.begin(); it < Tubes.end() && !Tubes.empty(); it++) //возврат расстояния до ближайшей трубы и её высоты
+			{
+				if ((*it)->Checked == false)
+				{
+					returnValue.Distance = (*it)->GetXCoord() - Bird.GetXCoord() + 25;
+					returnValue.Height = 480 - (*it)->TubeDownSprite.getPosition().y + 45;
+					break;
+				}
 
+			}
 		}
-		
-		
 
+		
+		
 		window.clear();
 		window.draw(BGSprite);
 		window.draw(Bird.BirdSprite);
 		for(it = Tubes.begin(); it < Tubes.end(); it++) //отрисовка труб
 		{ 
-			Tube *temp = *it;
-			window.draw(temp->TubeDownSprite);
-			window.draw(temp->TubeUpSprite);
+			window.draw((*it)->TubeDownSprite);
+			window.draw((*it)->TubeUpSprite);
 		}
 		window.draw(score);
 		window.display();
