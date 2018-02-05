@@ -265,7 +265,7 @@ int main()
 				deltaTime = 0;
 			}
 
-			for (it = Tubes.begin(); it < Tubes.end() && !Tubes.empty(); it++) //обновление движения труб
+			for (it = Tubes.begin(); it < Tubes.end() && !Tubes.empty(); it++) // обновление движения труб
 			{
 				(*it)->Update(time);
 			}
