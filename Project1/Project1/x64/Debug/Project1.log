@@ -1,4 +1,12 @@
-﻿  main.cpp
-c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(183): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(194): warning C4244: 'initializing': conversion from 'sf::Int64' to 'float', possible loss of data
-sfml-graphics-d.lib(sfml-graphics-d-2.dll) : fatal error LNK1112: module machine type 'x86' conflicts with target machine type 'x64'
+﻿  NNPlayer.cpp
+  Neuron.cpp
+  Net.cpp
+c:\users\andrew\documents\github\flappybird\project1\project1\net.cpp(53): warning C4267: инициализация: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+c:\users\andrew\documents\github\flappybird\project1\project1\net.cpp(63): warning C4267: инициализация: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+c:\users\andrew\documents\github\flappybird\project1\project1\net.cpp(95): warning C4267: инициализация: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+  main.cpp
+c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(191): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(203): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
+c:\users\andrew\documents\github\flappybird\project1\project1\main.cpp(228): warning C4305: =: усечение из "__int64" в "float"
+  Создание кода...
+sfml-graphics-d.lib(sfml-graphics-d-2.dll) : fatal error LNK1112: тип компьютера модуля "x86" противоречит типу целевого компьютера "x64"
